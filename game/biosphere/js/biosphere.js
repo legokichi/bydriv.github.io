@@ -89,6 +89,9 @@ function drawState(state, canvas) {
 }
 
 window.addEventListener("load", () => {
+    var stats = new Stats();
+    stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+    document.body.appendChild( stats.domElement );
     let state = {
         areas: []
     };
@@ -114,6 +117,7 @@ window.addEventListener("load", () => {
     var recorder = null;
 
     requestAnimationFrame(function step() {
+	    stats.begin();
         const canvas = document.getElementById("biosphere");
         const newAreas = [];
 
@@ -268,6 +272,7 @@ window.addEventListener("load", () => {
 
         state.areas = newAreas;
         drawState(state, canvas);
+        stats.end();
         requestAnimationFrame(step);
     });
 });
